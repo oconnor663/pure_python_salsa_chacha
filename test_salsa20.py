@@ -10,7 +10,7 @@ def test_salsa20():
     nonce = secrets.token_bytes(8)
     length = 1000
     here = pure_salsa20.salsa20_stream(key, nonce, length)
-    there = PyCryptodomeSalsa20.new(key, nonce).encrypt(b"\0" * length)
+    there = PyCryptodomeSalsa20.new(key=key, nonce=nonce).encrypt(b"\0" * length)
     assert here == there
 
 
