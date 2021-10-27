@@ -9,8 +9,9 @@ def test_chacha20():
     key = secrets.token_bytes(32)
     nonce = secrets.token_bytes(12)
     length = 1000
-    here = pure_chacha20.chacha20_stream(key, nonce, length)
-    there = PyCryptodomeChaCha20.new(key=key, nonce=nonce).encrypt(b"\0" * length)
+    plaintext = secrets.token_bytes(length)
+    here = pure_chacha20.chacha20_xor(key, nonce, plaintext)
+    there = PyCryptodomeChaCha20.new(key=key, nonce=nonce).encrypt(plaintext)
     assert here == there
 
 
@@ -22,9 +23,10 @@ def test_xchacha20():
     key = secrets.token_bytes(32)
     nonce = secrets.token_bytes(24)
     length = 1000
-    here = pure_chacha20.xchacha20_stream(key, nonce, length)
+    plaintext = secrets.token_bytes(length)
+    here = pure_chacha20.xchacha20_xor(key, nonce, plaintext)
     # Using the 24-byte nonce here automatically involves XChaCha20 rather than ChaCha20.
-    there = PyCryptodomeChaCha20.new(key=key, nonce=nonce).encrypt(b"\0" * length)
+    there = PyCryptodomeChaCha20.new(key=key, nonce=nonce).encrypt(plaintext)
     assert here == there
 
 
