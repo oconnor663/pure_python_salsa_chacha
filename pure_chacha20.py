@@ -59,24 +59,14 @@ def chacha20_block(key, nonce, blocknum):
     constant_words = words_from_bytes(b"expand 32-byte k")
     key_words = words_from_bytes(key)
     nonce_words = words_from_bytes(nonce)
+    # fmt: off
     original_block = [
-        constant_words[0],
-        constant_words[1],
-        constant_words[2],
-        constant_words[3],
-        key_words[0],
-        key_words[1],
-        key_words[2],
-        key_words[3],
-        key_words[4],
-        key_words[5],
-        key_words[6],
-        key_words[7],
-        mask32(blocknum),
-        nonce_words[0],
-        nonce_words[1],
-        nonce_words[2],
+        constant_words[0],  constant_words[1],  constant_words[2],  constant_words[3],
+        key_words[0],       key_words[1],       key_words[2],       key_words[3],
+        key_words[4],       key_words[5],       key_words[6],       key_words[7],
+        mask32(blocknum),   nonce_words[0],     nonce_words[1],     nonce_words[2],
     ]
+    # fmt: on
     permuted_block = list(original_block)
     chacha20_permute(permuted_block)
     for i in range(len(permuted_block)):
@@ -108,24 +98,14 @@ def hchacha20(key, input_bytes):
     constant_words = words_from_bytes(b"expand 32-byte k")
     key_words = words_from_bytes(key)
     input_words = words_from_bytes(input_bytes)
+    # fmt: off
     block = [
-        constant_words[0],
-        constant_words[1],
-        constant_words[2],
-        constant_words[3],
-        key_words[0],
-        key_words[1],
-        key_words[2],
-        key_words[3],
-        key_words[4],
-        key_words[5],
-        key_words[6],
-        key_words[7],
-        input_words[0],
-        input_words[1],
-        input_words[2],
-        input_words[3],
+        constant_words[0],  constant_words[1],  constant_words[2],  constant_words[3],
+        key_words[0],       key_words[1],       key_words[2],       key_words[3],
+        key_words[4],       key_words[5],       key_words[6],       key_words[7],
+        input_words[0],     input_words[1],     input_words[2],     input_words[3],
     ]
+    # fmt: on
     chacha20_permute(block)
     outputs = block[0:4] + block[12:16]
     return bytes_from_words(outputs)
