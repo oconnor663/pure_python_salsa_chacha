@@ -96,6 +96,11 @@ def chacha20_stream(key, nonce, length):
     return output
 
 
+def chacha20_xor(key, nonce, message):
+    stream = chacha20_stream(key, nonce, len(message))
+    return bytes(x ^ y for x, y in zip(message, stream))
+
+
 def hchacha20(key, input_bytes):
     # This implementation doesn't support 16-byte keys.
     assert len(key) == 32
@@ -132,3 +137,8 @@ def xchacha20_stream(key, nonce, length):
     assert len(nonce) == 24
     derived_key = hchacha20(key, nonce[:16])
     return chacha20_stream(derived_key, b"\0\0\0\0" + nonce[16:], length)
+
+
+def xchacha20_xor(key, nonce, message):
+    stream = xchacha20_stream(key, nonce, len(message))
+    return bytes(x ^ y for x, y in zip(message, stream))

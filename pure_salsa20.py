@@ -87,6 +87,11 @@ def salsa20_stream(key, nonce, length):
     return output
 
 
+def salsa20_xor(key, nonce, message):
+    stream = salsa20_stream(key, nonce, len(message))
+    return bytes(x ^ y for x, y in zip(message, stream))
+
+
 def hsalsa20(key, input_bytes):
     # This implementation doesn't support 16-byte keys.
     assert len(key) == 32
@@ -123,3 +128,8 @@ def xsalsa20_stream(key, nonce, length):
     assert len(nonce) == 24
     derived_key = hsalsa20(key, nonce[:16])
     return salsa20_stream(derived_key, nonce[16:], length)
+
+
+def xsalsa20_xor(key, nonce, message):
+    stream = xsalsa20_stream(key, nonce, len(message))
+    return bytes(x ^ y for x, y in zip(message, stream))

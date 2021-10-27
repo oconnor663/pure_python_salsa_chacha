@@ -13,6 +13,9 @@ def test_salsa20():
     there = PyCryptodomeSalsa20.new(key=key, nonce=nonce).encrypt(b"\0" * length)
     assert here == there
 
+    # And test the _xor function too.
+    assert here == pure_salsa20.salsa20_xor(key, nonce, b"\0" * length)
+
 
 def test_xsalsa20():
     # Test this implementation against `pip install pynacl`.
@@ -28,3 +31,6 @@ def test_xsalsa20():
     there = SecretBox(key).encrypt(b"\0" * length, nonce).ciphertext
     assert len(there) == length + 16
     assert here[32:] == there[16:]
+
+    # And test the _xor function too.
+    assert here == pure_salsa20.xsalsa20_xor(key, nonce, b"\0" * (length + 32))
