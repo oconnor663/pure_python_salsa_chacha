@@ -1,11 +1,11 @@
+from Crypto.Cipher import Salsa20 as PyCryptodomeSalsa20
+from nacl.secret import SecretBox
+import secrets
+
 import pure_salsa20
 
 
 def test_salsa20():
-    # Test this implementation against `pip install pycryptodome`.
-    from Crypto.Cipher import Salsa20 as PyCryptodomeSalsa20
-    import secrets
-
     key = secrets.token_bytes(32)
     nonce = secrets.token_bytes(8)
     length = 1000
@@ -16,10 +16,6 @@ def test_salsa20():
 
 
 def test_xsalsa20():
-    # Test this implementation against `pip install pynacl`.
-    from nacl.secret import SecretBox
-    import secrets
-
     key = secrets.token_bytes(32)
     nonce = secrets.token_bytes(24)
     length = 1000

@@ -1,11 +1,10 @@
+from Crypto.Cipher import ChaCha20 as PyCryptodomeChaCha20
+import secrets
+
 import pure_chacha20
 
 
 def test_chacha20():
-    # Test this implementation against `pip install pycryptodome`.
-    from Crypto.Cipher import ChaCha20 as PyCryptodomeChaCha20
-    import secrets
-
     key = secrets.token_bytes(32)
     nonce = secrets.token_bytes(12)
     length = 1000
@@ -16,10 +15,6 @@ def test_chacha20():
 
 
 def test_xchacha20():
-    # Test this implementation against `pip install pycryptodome`.
-    from Crypto.Cipher import ChaCha20 as PyCryptodomeChaCha20
-    import secrets
-
     key = secrets.token_bytes(32)
     nonce = secrets.token_bytes(24)
     length = 1000
