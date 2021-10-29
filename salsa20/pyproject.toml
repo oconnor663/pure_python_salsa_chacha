@@ -1,0 +1,10 @@
+[tool.poetry]
+name = "pure_salsa20"
+version = "0.1.0"
+description = "a pure Python implementation of Salsa20 and XSalsa20"
+license = "CC0-1.0"
+authors = ["Jack O'Connor <oconnor663@gmail.com>"]
+repository = "https://github.com/oconnor663/pure_python_salsa_chacha"
+
+[tool.poetry.dependencies]
+python = "*"
